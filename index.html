@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <link rel="stylesheet" href="styles.css">
+        <meta charset="UTF-8">
+        <title>Sistema Financiero</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+
+<body> <!-- PANTALLA LOGIN-->
+  <section id="login-section">
+    <div class="login-container">
+        <h2>Iniciar Sesión</h2>
+
+        <form id="form-login">
+            <input type="text" id="usuario" placeholder="Usuario" required>
+            <input type="password" id="password" placeholder="Contraseña" required>
+            <button type="submit">Ingresar</button>
+        </form>
+
+        <p id="mensaje-login"></p>
+    </div>
+</section>
+
+<!--PANTALLA PRINCIPAL LUEGO DEL LOGIN-->
+<div id="app-container" style="display:none;">
+    <button id="menu-toggle" class="menu-toggle">☰</button>
+<nav>
+<button onclick="toggleDarkMode()">🌙 Modo oscuro</button>
+<button onclick="mostrarSeccion('dashboard')">Inicio</button>
+
+<button onclick="mostrarSeccion('salarios')">Salarios</button>
+
+<button onclick="mostrarSeccion('ahorros')">Ahorros</button>
+
+<button onclick="mostrarSeccion('metas')">Metas</button>
+
+<button onclick="mostrarSeccion('documentos')">Documentos</button>
+
+<button onclick="mostrarSeccion('historial')">Historial</button>
+
+<button onclick="cerrarSesion()">Cerrar sesión</button>
+</nav>
+
+
+    <main id="contenido-principal">
+
+         <!-- DASHBOARD -->
+    <section id="dashboard" class="seccion">
+
+        <h1>DASHBOARD <span id="nombre-usuario"></span></h1>
+        <h2 id="titulo-dashboard">
+    
+</h2>
+
+<div id="reloj"></div>
+
+        <div class="tarjetas">
+
+            <div class="tarjeta">
+                <h3>Aguinaldo proyectado</h3>
+                <p id="aguinaldo">₡0</p>
+            </div>
+
+            <div class="tarjeta">
+                <h3>Salario escolar proyectado</h3>
+                <p id="salario-escolar">₡0</p>
+            </div>
+
+            <div class="tarjeta">
+                <h3>Total de ahorro</h3>
+                <p id="ahorro-total">₡0</p>
+            </div>
+
+        </div>
+
+        <h2>Progreso de ahorro</h2>
+<div class="barra-contenedor">
+    <div class="barra" id="barra-progreso"></div>
+    <span id="porcentaje-barra" class="porcentaje-texto">0%</span>
+</div>
+
+<!--
+<div class="config-meta">
+    <label>Establecer meta de ahorro:</label>
+    <input type="number" id="input-meta" placeholder="Ej: 500000">
+    <button onclick="establecerMeta()">Guardar Meta</button>
+</div>-->
+
+<div class="graficos-container">
+    <canvas id="graficoProgreso"></canvas>
+    <canvas id="graficoAguinaldo"></canvas>
+    <canvas id="graficoSalarioEscolar"></canvas>
+</div>
+    
+
+    </section>
+    <!-- SALARIOS -->
+<section id="salarios" class="seccion">
+
+    <h1>Registro de Salarios</h1>
+
+    <div class="opciones-salario">
+        <button>Ingreso Manual</button>
+        <button>Importar Boleta</button>
+    </div>
+
+    <h2>Formulario mensual</h2>
+
+    <form id="form-salario">
+
+        <label>Mes:</label>
+<select id="mes-salario">
+    <option value="Enero">Enero</option>
+    <option value="Febrero">Febrero</option>
+    <option value="Marzo">Marzo</option>
+    <option value="Abril">Abril</option>
+    <option value="Mayo">Mayo</option>
+    <option value="Junio">Junio</option>
+    <option value="Julio">Julio</option>
+    <option value="Agosto">Agosto</option>
+    <option value="Septiembre">Septiembre</option>
+    <option value="Octubre">Octubre</option>
+    <option value="Noviembre">Noviembre</option>
+    <option value="Diciembre">Diciembre</option>
+</select>
+
+        <label>Año:</label>
+<select id="anio-salario">
+    </select>
+
+        <label>Salario bruto</label><br>
+        <input type="number" id="salario-bruto"><br><br>
+
+        <label>Horas extra</label><br>
+        <input type="number" id="horas-extra"><br><br>
+
+        <label>Bonificaciones</label><br>
+        <input type="number" id="bonificaciones"><br><br>
+
+        <label>Deducciones</label><br>
+        <input type="number" id="deducciones"><br><br>
+
+        <label>Salario neto</label><br>
+        <input type="number" id="salario-neto"><br><br>
+
+        <label>Deducción salario escolar</label><br>
+        <input type="number" id="deduccion-escolar"><br><br>
+
+        <button type="submit">Guardar registro</button>
+
+    </form>
+
+</section>
+
+<!-- AHORROS -->
+<section id="ahorros" class="seccion">
+
+    <h1>Plan de Ahorro</h1>
+
+    <h2>Registrar movimiento</h2>
+
+    <form id="form-ahorro">
+
+        <label>Fecha</label><br>
+        <input type="date" id="fecha-ahorro"><br><br>
+
+        <label>Tipo</label><br>
+        <select id="tipo-ahorro">
+            <option value="deposito">Depósito</option>
+            <option value="retiro">Retiro</option>
+        </select><br><br>
+
+        <label>Monto</label><br>
+        <input type="number" id="monto-ahorro"><br><br>
+
+        <label>Descripción</label><br>
+        <input type="text" id="descripcion-ahorro"><br><br>
+
+        <button type="submit">Guardar movimiento</button>
+
+    </form>
+
+    <h2>Historial de movimientos</h2>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Fecha</th>
+                <th>Tipo</th>
+                <th>Monto</th>
+                <th>Descripción</th>
+            </tr>
+        </thead>
+        <tbody id="tabla-ahorros">
+            <!-- Aquí irán los movimientos -->
+        </tbody>
+    </table>
+
+</section>
+
+<!-- METAS -->
+<section id="metas" class="seccion">
+
+    <h1>Metas de Ahorro</h1>
+
+    <h2>Crear nueva meta</h2>
+
+    <form id="form-meta">
+
+        <label>Nombre de la meta</label><br>
+        <input type="text" id="nombre-meta"><br><br>
+
+        <label>Monto objetivo</label><br>
+        <input type="number" id="monto-objetivo"><br><br>
+
+        <label>Plazo (meses)</label><br>
+        <input type="number" id="plazo-meses"><br><br>
+
+        <label>Fecha de inicio</label><br>
+        <input type="date" id="fecha-inicio-meta"><br><br>
+
+       <button type="button" onclick="establecerMeta()">Crear meta</button>
+
+    </form>
+
+    <h2>Progreso de la meta</h2>
+
+    <div class="detalle-meta">
+
+        <p>Monto actual: ₡<span id="monto-actual-meta">0</span></p>
+        <p>Porcentaje logrado: <span id="porcentaje-meta">0%</span></p>
+        <p>Porcentaje de tiempo transcurrido: <span id="porcentaje-tiempo">0%</span></p>
+
+        <canvas id="grafico-meta"></canvas>
+
+    </div>
+
+</section>
+
+<!-- DOCUMENTOS -->
+<section id="documentos" class="seccion">
+
+    <h1>Documentos</h1>
+
+    <h2>Subir documento</h2>
+
+    <form id="form-documento">
+
+        <label>Seleccionar archivo</label><br>
+        <input type="file" id="archivo-documento"><br><br>
+
+        <label>Tipo de documento</label><br>
+        <select id="tipo-documento">
+            <option value="boleta">Boleta de salario</option>
+            <option value="comprobante">Comprobante</option>
+            <option value="otro">Otro</option>
+        </select><br><br>
+
+        <label>Descripción</label><br>
+        <input type="text" id="descripcion-documento"><br><br>
+
+        <button type="submit">Guardar documento</button>
+
+    </form>
+
+    <h2>Archivos guardados</h2>
+
+    <table border="1">
+
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Tipo</th>
+                <th>Descripción</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+
+        <tbody id="tabla-documentos">
+            <!-- aquí aparecerán los documentos -->
+        </tbody>
+
+    </table>
+
+</section>
+<!-- HISTORIAL -->
+<section id="historial" class="seccion">
+
+    <h1>Historial General</h1>
+<button id="btn-exportar-pdf" style="background-color: #e74c3c; color: white;">Descargar Reporte PDF</button>
+    <h2>Filtros</h2>
+
+    <label>Tipo de registro</label>
+    <select id="filtro-tipo">
+        <option value="todos">Todos</option>
+        <option value="salario">Salarios</option>
+        <option value="ahorro">Ahorros</option>
+        <option value="meta">Metas</option>
+        <option value="documento">Documentos</option>
+    </select>
+
+    <label>Desde</label>
+    <input type="date" id="filtro-desde">
+
+    <label>Hasta</label>
+    <input type="date" id="filtro-hasta">
+
+    <button id="btn-filtrar">Filtrar</button>
+
+    <h2>Registros</h2>
+
+    <table border="1">
+
+        <thead>
+            <tr>
+                <th>Fecha</th>
+                <th>Tipo</th>
+                <th>Descripción</th>
+                <th>Monto</th>
+                <th>Acción</th>
+            </tr>
+        </thead>
+
+        <tbody id="tabla-historial">
+            <!-- registros combinados aparecerán aquí -->
+        </tbody>
+
+    </table>
+
+</section>
+
+    </main>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="app.js"></script>
+
+
+</body>
+
+</html>
